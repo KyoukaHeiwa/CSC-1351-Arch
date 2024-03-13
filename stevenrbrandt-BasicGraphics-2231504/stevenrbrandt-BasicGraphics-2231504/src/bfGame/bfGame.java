@@ -18,7 +18,7 @@ public class bfGame {
         bfG = BasicFrame.getFrame();
         if(bfG != null)
             bfG.disposeFrame();
-        bfG = new BasicFrame("Text Adventure Epic! And Cool");
+        bfG = new BasicFrame("Text Adventure");
         SpriteComponent sc = new SpriteComponent(){
             @Override
             public void paintBackground(Graphics g){
