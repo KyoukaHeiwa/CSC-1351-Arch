@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "stevenrbrandt-BasicGraphics-2231504/stevenrbrandt-BasicGraphics-2231504/piraha.jar"
+    ]
+}

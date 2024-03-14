@@ -1,3 +1,5 @@
+package basicgraphics.sounds;
+
 import basicgraphics.FileUtility;
 import basicgraphics.images.RuntimeIOException;
 import javax.sound.sampled.*;
