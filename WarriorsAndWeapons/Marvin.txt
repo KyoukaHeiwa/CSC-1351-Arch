@@ -1,0 +1,2 @@
+Weapon sword, damage=5
+Warrior Marvin, health=10, max health=10

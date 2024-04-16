@@ -1,0 +1,2 @@
+Warrior Karmang, health=6, max health=6
+Weapon Q36SpaceModulator, damage=8

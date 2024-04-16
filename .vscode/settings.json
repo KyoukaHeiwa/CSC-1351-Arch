@@ -1,6 +1,15 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "stevenrbrandt-BasicGraphics-2231504/stevenrbrandt-BasicGraphics-2231504/piraha.jar"
+        "stevenrbrandt-BasicGraphics-2231504/stevenrbrandt-BasicGraphics-2231504/piraha.jar",
+        "sbrand-BasicGraphics/piraha.jar"
+    ],
+    "java.project.sourcePaths": [
+        "stevenrbrandt-BasicGraphics-2231504/src",
+        "WarriorsAndWeapons/src",
+        "Tombs2",
+        "Tombs/src",
+        "CSC 1351/src",
+        "sbrand-BasicGraphics/src"
     ]
 }

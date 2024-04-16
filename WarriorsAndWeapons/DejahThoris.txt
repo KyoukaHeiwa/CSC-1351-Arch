@@ -1,0 +1,2 @@
+Weapon Q36SpaceModulator, damage=8
+Warrior DejahThoris, health=11, max health=11

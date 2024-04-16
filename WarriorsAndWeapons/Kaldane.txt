@@ -1,0 +1,2 @@
+Weapon sword, damage=5
+Warrior Kaldane, health=7, max health=7

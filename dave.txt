@@ -1,0 +1,2 @@
+Warrior dave, health=1000, max health=1000
+Weapon null, damage=4

@@ -1,0 +1,2 @@
+Warrior DejahThoris, health=11, max health=11
+Weapon Sword, damage=4

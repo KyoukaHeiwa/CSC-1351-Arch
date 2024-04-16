@@ -1,0 +1,367 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "bfGame",
+            "request": "launch",
+            "mainClass": "oldFP.bfGame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "MainMenu",
+            "request": "launch",
+            "mainClass": "FinalProject.MainMenu",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "myGame",
+            "request": "launch",
+            "mainClass": "oldFinalProject.myGame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "MyArrayList",
+            "request": "launch",
+            "mainClass": "Examples.MyArrayList",
+            "projectName": "CSC 1351_af1640a7",
+            "vmArgs": "-ea"
+        },
+        {
+            "type": "java",
+            "name": "Arithmetic",
+            "request": "launch",
+            "mainClass": "Arithmetic",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "WordCount5",
+            "request": "launch",
+            "mainClass": "Examples.WordCount5",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
+            "name": "WordCount4",
+            "request": "launch",
+            "mainClass": "Examples.WordCount4",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
+            "name": "WordCount3",
+            "request": "launch",
+            "mainClass": "Examples.WordCount3",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
+            "name": "WordCount1",
+            "request": "launch",
+            "mainClass": "Examples.WordCount1",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "DoubLink",
+            "request": "launch",
+            "mainClass": "Examples.DoubLink",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "bfGame",
+            "request": "launch",
+            "mainClass": "bfGame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Shortest",
+            "request": "launch",
+            "mainClass": "Shortest",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "ShortestImpl",
+            "vmArgs": "-ea"
+        },
+        {
+            "type": "java",
+            "name": "k",
+            "request": "launch",
+            "mainClass": "k",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Shortest",
+            "request": "launch",
+            "mainClass": "tombs.Shortest",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "tombs.ShortestImpl",
+            "vmArgs": "-ea"
+        },
+        {
+            "type": "java",
+            "name": "MyHashMap",
+            "request": "launch",
+            "mainClass": "Examples.MyHashMap",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "MyArrayMap",
+            "request": "launch",
+            "mainClass": "Examples.MyArrayMap",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "MyLinkedList",
+            "request": "launch",
+            "mainClass": "Examples.MyLinkedList",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Ex3",
+            "request": "launch",
+            "mainClass": "Ex3",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Ex4",
+            "request": "launch",
+            "mainClass": "Ex4",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Ex5",
+            "request": "launch",
+            "mainClass": "Ex5",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Find",
+            "request": "launch",
+            "mainClass": "Find",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Foo",
+            "request": "launch",
+            "mainClass": "Foo",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "GCD",
+            "request": "launch",
+            "mainClass": "GCD",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Monster",
+            "request": "launch",
+            "mainClass": "Monster",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "MyEx",
+            "request": "launch",
+            "mainClass": "MyEx",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Rdme",
+            "request": "launch",
+            "mainClass": "Rdme",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "ReadersAndWriters",
+            "request": "launch",
+            "mainClass": "ReadersAndWriters",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Flyer",
+            "request": "launch",
+            "mainClass": "basicflyer.Flyer",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "BasicFrame",
+            "request": "launch",
+            "mainClass": "basicgraphics.BasicFrame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "ByNameLayout",
+            "request": "launch",
+            "mainClass": "basicgraphics.ByNameLayout",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Util",
+            "request": "launch",
+            "mainClass": "basicgraphics.Util",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "CalcTester",
+            "request": "launch",
+            "mainClass": "basicgraphics.calculator.CalcTester",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Calculator",
+            "request": "launch",
+            "mainClass": "basicgraphics.calculator.Calculator",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "CardLayoutExample",
+            "request": "launch",
+            "mainClass": "basicgraphics.cards.CardLayoutExample",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "BasicGraphics",
+            "request": "launch",
+            "mainClass": "basicgraphics.examples.BasicGraphics",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "ReusableClip",
+            "request": "launch",
+            "mainClass": "basicgraphics.sounds.ReusableClip",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "mainClass": "basicshooter.Game",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "beowulf.dragons.Main",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "bfGame",
+            "request": "launch",
+            "mainClass": "finalProject.bfGame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Ant",
+            "request": "launch",
+            "mainClass": "langtonsant.Ant",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "LightsOutGame",
+            "request": "launch",
+            "mainClass": "lightsout.LightsOutGame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Maze",
+            "request": "launch",
+            "mainClass": "maze.Maze",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Game(1)",
+            "request": "launch",
+            "mainClass": "prog.game.Game",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Game2",
+            "request": "launch",
+            "mainClass": "prog.game.Game2",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Robo",
+            "request": "launch",
+            "mainClass": "robosorter.Robo",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "BTree",
+            "request": "launch",
+            "mainClass": "trees.BTree",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "WalkDog",
+            "request": "launch",
+            "mainClass": "walkthedog.WalkDog",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "Arena",
+            "request": "launch",
+            "mainClass": "warriorsandweapons.Arena",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "warriorsandweapons.WeaponImpl warriorsandweapons.WarriorImpl warriorsandweapons.DiskImpl",
+            "vmArgs": "-ea"
+        }
+    ]
+}

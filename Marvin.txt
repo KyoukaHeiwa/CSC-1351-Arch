@@ -1,0 +1,2 @@
+Warrior Marvin, health=10, max health=10
+Weapon Q36SpaceModulator, damage=8

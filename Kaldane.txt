@@ -1,0 +1,2 @@
+Warrior Kaldane, health=7, max health=7
+Weapon null, damage=4

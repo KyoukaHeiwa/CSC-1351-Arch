@@ -1,0 +1,2 @@
+Weapon DeathRay, damage=7
+Warrior RasThavas, health=9, max health=9
