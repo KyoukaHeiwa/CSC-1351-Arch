@@ -3,19 +3,12 @@ package oldFinalProject;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 import basicgraphics.BasicFrame;
-import basicgraphics.CollisionEventType;
-import basicgraphics.Sprite;
-import basicgraphics.SpriteCollisionEvent;
 import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
-import basicgraphics.sounds.ReusableClip;
-import java.awt.geom.AffineTransform;
-
 import java.awt.*;
 
 public class WeaverEnemy extends Enemy {

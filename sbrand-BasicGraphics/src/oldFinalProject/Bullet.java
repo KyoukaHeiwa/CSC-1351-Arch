@@ -48,7 +48,7 @@ class Bullet extends Sprite {
         setX(sp.getX() + (myGame.BIG - myGame.SMALL) / 2);
         setY(sp.getY() + (myGame.BIG - myGame.SMALL) / 2);
         double dist = Math.sqrt(delx * delx + dely * dely);
-        setVel(4 * delx / dist * myGame.bulletSpeedMultiplier, 4 * dely / dist * myGame.bulletSpeedMultiplier);
+        setVel(5 * delx / dist * myGame.bulletSpeedMultiplier, 5 * dely / dist * myGame.bulletSpeedMultiplier);
     }
     
     public boolean isOutOfGameArea() {

@@ -1,33 +1,35 @@
-Date : 2024-04-16 15:36:07
+Date : 2024-04-18 11:59:32
 Directory : /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject
-Total : 9 files,  687 codes, 230 comments, 125 blanks, all 1042 lines
+Total : 11 files,  1082 codes, 254 comments, 205 blanks, all 1541 lines
 
 Languages
 +----------+------------+------------+------------+------------+------------+
 | language | files      | code       | comment    | blank      | total      |
 +----------+------------+------------+------------+------------+------------+
-| Java     |          9 |        687 |        230 |        125 |      1,042 |
+| Java     |         11 |      1,082 |        254 |        205 |      1,541 |
 +----------+------------+------------+------------+------------+------------+
 
 Directories
 +------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                                       | files      | code       | comment    | blank      | total      |
 +------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                                          |          9 |        687 |        230 |        125 |      1,042 |
+| .                                                                                                          |         11 |      1,082 |        254 |        205 |      1,541 |
 +------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
 Files
 +------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
 | filename                                                                                                   | language | code       | comment    | blank      | total      |
 +------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
-| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Bullet.java        | Java     |         34 |         10 |          5 |         49 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Bullet.java        | Java     |         61 |         14 |         15 |         90 |
 | /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Enemy.java         | Java     |         78 |         27 |         15 |        120 |
 | /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/EnemyCreator.java  | Java     |          0 |         54 |         15 |         69 |
-| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/PinwheelEnemy.java | Java     |         47 |          0 |         10 |         57 |
-| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/RhombusEnemy.java  | Java     |         50 |          1 |         11 |         62 |
-| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Shooter.java       | Java     |         64 |          6 |         12 |         82 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Life.java          | Java     |         16 |          0 |          2 |         18 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/PinwheelEnemy.java | Java     |        106 |         23 |         28 |        157 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/RhombusEnemy.java  | Java     |         73 |          2 |         17 |         92 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Shooter.java       | Java     |         84 |          6 |         16 |        106 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Stars.java         | Java     |         81 |         23 |         16 |        120 |
 | /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/TitleScreen.java   | Java     |          0 |         25 |          4 |         29 |
-| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/WeaverEnemy.java   | Java     |         72 |          3 |         18 |         93 |
-| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/myGame.java        | Java     |        342 |        104 |         35 |        481 |
-| Total                                                                                                      |          |        687 |        230 |        125 |      1,042 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/WeaverEnemy.java   | Java     |         94 |         31 |         34 |        159 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/myGame.java        | Java     |        489 |         49 |         43 |        581 |
+| Total                                                                                                      |          |      1,082 |        254 |        205 |      1,541 |
 +------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

@@ -11,15 +11,9 @@ import basicgraphics.Sprite;
 import basicgraphics.SpriteComponent;
 import basicgraphics.SpriteSpriteCollisionListener;
 import basicgraphics.sounds.ReusableClip;
-import basicgraphics.sounds.SoundPlayer;
-import basicgraphics.Task;
-import basicgraphics.images.Picture;
-import static oldFinalProject.Enemy.enemyCount;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -31,7 +25,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -82,17 +75,8 @@ public class myGame {
     final static ReusableClip gameOver = new ReusableClip("Game_over.wav");
     final static ReusableClip smartBomb = new ReusableClip("Fire_smartbomb.wav");
     public static List<Life> lifeSprites = new ArrayList<>();
-    List<Sprite> spritesToRemove = new ArrayList<>();
-    JPanel titlePanel, startPanel;
-    boolean gameIsRunning = false;
-    final int numStars = 20;
     public static int numRhombusEnemiesToSpawn = 1;
     public static int numWeaverEnemiesToSpawn = 1;
-    private boolean isBulletActive = false;
-
-
-    private Timer rhombusEnemyTimer, weaverEnemyTimer;
-
     public static void main(String[] args) {
         myGame g = new myGame();
         g.run();
@@ -107,6 +91,20 @@ public class myGame {
         // TODO Auto-generated method stub
         return shooter;
     }
+    public static List<Enemy> getActiveEnemies() {
+        // TODO Auto-generated method stub
+        return listOfEnemies;
+        //throw new UnsupportedOperationException("Unimplemented method 'getActiveEnemies'");
+    }
+
+
+    List<Sprite> spritesToRemove = new ArrayList<>();
+
+    JPanel titlePanel, startPanel;
+    boolean gameIsRunning = false;
+    final int numStars = 20;
+    private boolean isBulletActive = false;
+    private Timer rhombusEnemyTimer, weaverEnemyTimer;
     // static Picture makeBall(Color color, int size) {
     //     Image im = BasicFrame.createImage(size, size);
     //     Graphics g = im.getGraphics();
@@ -115,22 +113,23 @@ public class myGame {
     //     return new Picture(im);
     // }
     private int score = 0;
+
     private int highScore = 0;
-
     private String highScoreFile = "highscore.txt";
+
+
     private JLabel scoreLabel, highScoreLabel;
-
-
+    
     int enemiesToKill = 20;
     
     public JLabel gameTitle = new JLabel("Geometry Wars");
-    
+
     // final static ReusableClip shooterWallCollide = new ReusableClip("Ship_hitwall.wav");
     private Timer pEnemyTimer, rEnemyTimer, wEnemyTimer;
-
     BasicFrame bf = new BasicFrame("Shooter!");
-    Set<Integer> keys = new HashSet<>();
 
+
+    Set<Integer> keys = new HashSet<>();
 
     public void run() {
 
@@ -364,7 +363,7 @@ public class myGame {
                     numRhombusEnemiesToSpawn = (int) Math.ceil(numRhombusEnemiesToSpawn * 1.2);
                 }
             }
-        }, 30000, 30000); // runs first after 30 seconds, then every 30 seconds
+        }, 30000, 40000); // runs first after 30 seconds, then every 30 seconds
         wEnemyTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -388,7 +387,7 @@ public class myGame {
                     numWeaverEnemiesToSpawn = (int) Math.ceil(numWeaverEnemiesToSpawn * 1.2);
                 }
             }
-        }, 45000, 38000); // runs first after 30 seconds, then every 30 seconds
+        }, 45000, 45000); // runs first after 30 seconds, then every 30 seconds
 
         KeyAdapter shooterControlListener = new KeyAdapter() {
             @Override
@@ -536,7 +535,6 @@ public class myGame {
                 shooter.lifeLost();
                 if (!lifeSprites.isEmpty()) {
                     smartBomb.playOverlapping();
-                    shooterSpawn.playOverlapping();
                     Sprite lifeSprite = lifeSprites.remove(lifeSprites.size() - 1);
                     lifeSprite.setActive(false);
                     sc.removeSprite(lifeSprite);
@@ -551,12 +549,6 @@ public class myGame {
                     JOptionPane.showMessageDialog(sc, "You lose! Game Over!");
                     System.exit(0);
                 }
-                else{
-                    spritesToRemove.add(sp1);
-                }
-                for (Sprite sprite : spritesToRemove){
-                    sc.removeSprite(sprite);
-                }
             }
         });
         sc.addSpriteSpriteCollisionListener(Enemy.class, Bullet.class, new SpriteSpriteCollisionListener<Enemy, Bullet>() {
@@ -565,6 +557,7 @@ public class myGame {
                 enemyDeath.playOverlapping();
                 sp1.setActive(false);
                 sp2.setActive(false);
+                updateEnemies();
                 myGame.removeEnemy(sp1);
                 enemyKillCount++;
                 if (sp1 instanceof RhombusEnemy) {
@@ -601,12 +594,6 @@ public class myGame {
         
         
         
-    }
-
-    public static List<Enemy> getActiveEnemies() {
-        // TODO Auto-generated method stub
-        return listOfEnemies;
-        //throw new UnsupportedOperationException("Unimplemented method 'getActiveEnemies'");
     }
     public void loadHighScore() {
         try (BufferedReader reader = new BufferedReader(new FileReader(highScoreFile))) {

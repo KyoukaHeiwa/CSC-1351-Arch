@@ -1,9 +1,7 @@
 package oldFinalProject;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,6 @@ import basicgraphics.Sprite;
 import basicgraphics.SpriteCollisionEvent;
 import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
-import basicgraphics.sounds.ReusableClip;
 
 public class Shooter extends Sprite {
     private double velX = 0;
