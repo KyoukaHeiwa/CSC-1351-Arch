@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "InAndOut",
+            "request": "launch",
+            "mainClass": "Examples.InAndOut",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
             "name": "bfGame",
             "request": "launch",
             "mainClass": "oldFP.bfGame",

@@ -12,7 +12,7 @@ import basicgraphics.BasicFrame;
 public class Life extends Sprite {
     public Life(SpriteComponent sc) {
         super(sc);
-        setPicture(myGame.makeBall(myGame.SHOOTER_COLOR, myGame.BIG));
+        setPicture(Shooter.createDiamondSprite(30));
         myGame.sc.addSprite(this);
     }
 }

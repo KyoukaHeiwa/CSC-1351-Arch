@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -37,7 +38,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.*;
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import basicgraphics.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,7 +53,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.List;
 
 public class myGame {
-    final public static Random RAND = new Random();
+    public final static Random RAND = new Random();
     final public static Color SHOOTER_COLOR = Color.blue;
     final public static Color BULLET_COLOR = Color.blue;
     final public static Color ENEMY_COLOR = Color.red;
@@ -54,7 +62,7 @@ public class myGame {
     final public static int SMALL = 5;
     public static int ENEMIES = 10;
     final public static Dimension BOARD_SIZE = new Dimension(1400,1000);
-    static SpriteComponent sc;
+    static SpriteComponent sc, sc2;
     static Shooter shooter;
     private static List<Enemy> listOfEnemies = new CopyOnWriteArrayList<>();
     private static List<Bullet> listOfBullets = new ArrayList<>();
@@ -72,8 +80,18 @@ public class myGame {
     final static ReusableClip shooterDeath = new ReusableClip("Ship_explode.wav");
     final static ReusableClip shooterSpawn = new ReusableClip("Player_Spawn.wav");
     final static ReusableClip gameOver = new ReusableClip("Game_over.wav");
+    final static ReusableClip smartBomb = new ReusableClip("Fire_smartbomb.wav");
     public static List<Life> lifeSprites = new ArrayList<>();
     List<Sprite> spritesToRemove = new ArrayList<>();
+    JPanel titlePanel, startPanel;
+    boolean gameIsRunning = false;
+    final int numStars = 20;
+    public static int numRhombusEnemiesToSpawn = 1;
+    public static int numWeaverEnemiesToSpawn = 1;
+    private boolean isBulletActive = false;
+
+
+    private Timer rhombusEnemyTimer, weaverEnemyTimer;
 
     public static void main(String[] args) {
         myGame g = new myGame();
@@ -89,13 +107,13 @@ public class myGame {
         // TODO Auto-generated method stub
         return shooter;
     }
-    static Picture makeBall(Color color, int size) {
-        Image im = BasicFrame.createImage(size, size);
-        Graphics g = im.getGraphics();
-        g.setColor(color);
-        g.fillOval(0, 0, size, size);
-        return new Picture(im);
-    }
+    // static Picture makeBall(Color color, int size) {
+    //     Image im = BasicFrame.createImage(size, size);
+    //     Graphics g = im.getGraphics();
+    //     g.setColor(color);
+    //     g.fillOval(0, 0, size, size);
+    //     return new Picture(im);
+    // }
     private int score = 0;
     private int highScore = 0;
 
@@ -119,7 +137,7 @@ public class myGame {
         final Container content = bf.getContentPane();
         final CardLayout cards = new CardLayout();
         content.setLayout(cards);
-        BasicContainer bc1 = new BasicContainer();
+        final BasicContainer bc1 = new BasicContainer();
         content.add(bc1,"Splash");
         final BasicContainer bc2 = new BasicContainer();
         content.add(bc2,"Game");
@@ -131,31 +149,53 @@ public class myGame {
                 Dimension d = getSize();
                 g.setColor(Color.black); 
                 g.fillRect(0, 0, d.width, d.height);
-                final int NUM_STARS = 30;
-                Random rand = new Random();
-                rand.setSeed(0);
+                final int NUM_LIGHTS = 30;
+                //Random rand = new Random();
+                RAND.setSeed(0);
                 g.setColor(Color.white);
-                for(int i=0;i<NUM_STARS;i++) {
-                    int diameter = rand.nextInt(5)+1;
-                    int xpos = rand.nextInt(d.width);
-                    int ypos = rand.nextInt(d.height);
+                for(int i=0;i<NUM_LIGHTS;i++) {
+                    int diameter = RAND.nextInt(5)+1;
+                    int xpos = RAND.nextInt(d.width);
+                    int ypos = RAND.nextInt(d.height);
                     g.fillOval(xpos, ypos, diameter, diameter);
                 }
             }
         };
+        sc2 = new SpriteComponent() {
+            @Override
+            public void paintBackground(Graphics g) {
+                Dimension d = getSize();
+                g.setColor(Color.black);
+                g.fillRect(0, 0, d.width, d.height);
+            }
+        };
         sc.setPreferredSize(BOARD_SIZE);
+        sc2.setPreferredSize(BOARD_SIZE);
+        // String[][] layout = {{"center"}};
+        // bf.setStringLayout(layout);
+        // bf.add("center", gameTitle);;
         String[][] splashLayout = {
+
+            // {"Title"},
+            // {"Back"},
+            // {"Button"}
+            {"Background"},
             {"Title"},
             {"Button"}
         };
-        // bf.setStringLayout(layout);
-        // bf.add("center",sc);
-        // bf.add("north", scoreLabel);
         bc1.setStringLayout(splashLayout);
-        // menuSong.play();
-        // menuSong.loop();
+
         bf.getContentPane().setBackground(Color.black);
-        bc1.add("Title", gameTitle);
+
+        //bc1.add("Title", gameTitle);
+        bc1.add("Background", sc2);
+        //sc2.addSprite(firework);
+        titlePanel = new JPanel();
+        titlePanel.setBounds(BOARD_SIZE.width / 2 - 100, BOARD_SIZE.height / 3, 176, 32);
+        titlePanel.setBackground(Color.BLACK);
+        titlePanel.add(gameTitle);
+        sc2.add("Title", titlePanel);
+
         //scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
         gameTitle.setFont(new Font("Arial", Font.BOLD, 24));
         gameTitle.setOpaque(true); // Make the background opaque
@@ -165,6 +205,11 @@ public class myGame {
         jstart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gameIsRunning = true;
+                for (Sprite sprite : spritesToRemove) {
+                    sprite.setActive(false);
+                }
+                spritesToRemove.clear();
                 cards.show(content,"Game");
                 // The BasicContainer bc2 must request the focus
                 // otherwise, it can't get keyboard events.
@@ -172,7 +217,7 @@ public class myGame {
                 
                 // Start the timer
                 //ClockWorker.initialize(5);
-                ClockWorker.initialize(10);
+                // ClockWorker.initialize(10);
                 ClockWorker.addTask(sc.moveSprites());
                 themeSong.playOverlapping();
                 themeSong.loop();
@@ -225,8 +270,20 @@ public class myGame {
                 }).start();
             }
         });
-        bc1.add("Button",jstart);
-        bc1.setBackground(BULLET_COLOR);
+
+        //bc1.add("Button",jstart);
+        startPanel = new JPanel();
+        startPanel.setBounds(BOARD_SIZE.width / 2 - 50, 660, 90, 24);
+        startPanel.setBackground(Color.WHITE);
+        startPanel.setLayout(new GridLayout(1,1));
+        jstart.setFont(new Font("Arial", Font.BOLD, 24));
+        jstart.setBackground(Color.BLACK);
+        jstart.setForeground(Color.WHITE);
+        jstart.setFocusPainted(false);
+        startPanel.add(jstart);
+        sc2.add("Button",startPanel);
+
+        //bc1.setBackground(BULLET_COLOR);
         String[][] gameLayout = {
             {"Score", "High Score"},
             {"Geometry Wars", "Geometry Wars"}
@@ -243,61 +300,132 @@ public class myGame {
         highScoreLabel.setBackground(Color.BLACK); // Set the background color to black
         highScoreLabel.setForeground(Color.GREEN); // Set the text color to white
         shooter = new Shooter(sc);
-        int lifeW= 20;
-        int totalW = shooter.getLives() * lifeW;
-        int startX = (BOARD_SIZE.width - totalW) / 2;
+        for (int i = 0; i < numStars; i++) {
+            Stars star = new Stars(sc2);
+            sc2.addSprite(star);
+            spritesToRemove.add(star);
+        }
+        ClockWorker.initialize(10);
+        ClockWorker.addTask(sc2.moveSprites());
+        //sc2.addSprite(star);
+        int lifeW = 30; // Width of each life sprite
+        int spacing = 10; // Spacing between each life sprite
+        int totalW = shooter.getLives() * (lifeW + spacing) - spacing; // Total width of all life sprites plus the spacing between them
+        int startX = (BOARD_SIZE.width - totalW) / 2; // Start position so the life sprites are centered
         for (int i = 0; i < shooter.getLives(); i++) {
             Life life = new Life(sc);
-            //life.setX(i * 20); // Position the life sprites next to each other
-            life.setX(startX + i * lifeW);
+            life.setX(startX + i * (lifeW + spacing)); // Position the life sprites next to each other with proper spacing
             lifeSprites.add(life);
         }
         
-
         bc2.add("Score", scoreLabel);
         bc2.add("High Score", highScoreLabel);
         bc2.add("Geometry Wars", sc);
+        
         pEnemyTimer = new Timer();
         rEnemyTimer = new Timer();
         wEnemyTimer = new Timer();
         pEnemyTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                RhombusEnemy rhombusEnemy = RhombusEnemy.createRhombusEnemy(sc);
-                listOfEnemies.add(rhombusEnemy);
-                sc.addSprite(rhombusEnemy);
-                rEnemySpawn.playOverlapping();
+                if (gameIsRunning == true) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            PinwheelEnemy pinwheelEnemy = PinwheelEnemy.createPinwheelEnemy(sc);
+                            listOfEnemies.add(pinwheelEnemy);
+                            sc.addSprite(pinwheelEnemy);
+                            pEnemySpawn.playOverlapping();
+                        }
+                    });
+                }
             }
         }, 0, 1000);
-        wEnemyTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                WeaverEnemy weaverEnemy = WeaverEnemy.createWeaverEnemy(sc);
-                listOfEnemies.add(weaverEnemy);
-                sc.addSprite(weaverEnemy);
-                wEnemySpawn.playOverlapping();
-            }
-        }, 0, 2000);
         rEnemyTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                PinwheelEnemy pinwheelEnemy = PinwheelEnemy.createPinwheelEnemy(sc);
-                listOfEnemies.add(pinwheelEnemy);
-                sc.addSprite(pinwheelEnemy);
-                pEnemySpawn.playOverlapping();
+                if (gameIsRunning) {
+                    for (int i = 0; i < numRhombusEnemiesToSpawn; i++) {
+                        RhombusEnemy rhombusEnemy = RhombusEnemy.createRhombusEnemy(sc);
+                        listOfEnemies.add(rhombusEnemy);
+                        sc.addSprite(rhombusEnemy);
+                        rEnemySpawn.playOverlapping();
+                    }
+                }
             }
         }, 0, 1500);
+
+        // Schedule a task to increase the number of Rhombus enemies every 30 seconds
+        rhombusEnemyTimer = new Timer();
+        rhombusEnemyTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (gameIsRunning) {
+                    numRhombusEnemiesToSpawn = (int) Math.ceil(numRhombusEnemiesToSpawn * 1.2);
+                }
+            }
+        }, 30000, 30000); // runs first after 30 seconds, then every 30 seconds
+        wEnemyTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (gameIsRunning) {
+                    for (int i = 0; i < numWeaverEnemiesToSpawn; i++) {
+                        WeaverEnemy weaverEnemy = WeaverEnemy.createWeaverEnemy(sc);
+                        listOfEnemies.add(weaverEnemy);
+                        sc.addSprite(weaverEnemy);
+                        wEnemySpawn.playOverlapping();
+                    }
+                }
+            }
+        }, 15000, 2000); // Starts spawning after 30 seconds, then every 2 seconds
+
+        // Schedule a task to increase the number of Weaver enemies every 30 seconds
+        weaverEnemyTimer = new Timer();
+        weaverEnemyTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (gameIsRunning) {
+                    numWeaverEnemiesToSpawn = (int) Math.ceil(numWeaverEnemiesToSpawn * 1.2);
+                }
+            }
+        }, 45000, 38000); // runs first after 30 seconds, then every 30 seconds
+
         KeyAdapter shooterControlListener = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
                 keys.add(ke.getKeyCode());
-                if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
+                if (ke.getKeyCode() == KeyEvent.VK_Q) {
                     // If the space bar is pressed, remove all sprites
                     // for (Sprite sprite : new ArrayList<>(listOfEnemies)) {
                     //     sprite.setActive(false);
                     // }
                     // listOfEnemies.clear();
+                    smartBomb.playOverlapping();
                     spritesToRemove.addAll(listOfEnemies);
+                }
+                if (!isBulletActive) {
+                    switch (ke.getKeyCode()) {
+                        case KeyEvent.VK_RIGHT:
+                            new Bullet(sc, shooter, KeyEvent.VK_RIGHT);
+                            isBulletActive = true;
+                            bulletSound.playOverlapping();
+                            break;
+                        case KeyEvent.VK_LEFT:
+                            new Bullet(sc, shooter, KeyEvent.VK_LEFT);
+                            isBulletActive = true;
+                            bulletSound.playOverlapping();
+                            break;
+                        case KeyEvent.VK_UP:
+                            new Bullet(sc, shooter, KeyEvent.VK_UP);
+                            isBulletActive = true;
+                            bulletSound.playOverlapping();
+                            break;
+                        case KeyEvent.VK_DOWN:
+                            new Bullet(sc, shooter, KeyEvent.VK_DOWN);
+                            isBulletActive = true;
+                            bulletSound.playOverlapping();
+                            break;
+                    }
                 }
             }
             @Override
@@ -312,11 +440,23 @@ public class myGame {
                     case KeyEvent.VK_D:
                         shooter.setVelX(0);
                         break;
-                    case KeyEvent.VK_SPACE:
+                    case KeyEvent.VK_Q:
                         for (Sprite sprite : spritesToRemove) {
                             sprite.setActive(false);
                         }
                         spritesToRemove.clear();
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        isBulletActive = false;
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        isBulletActive = false;
+                        break;
+                    case KeyEvent.VK_UP:
+                        isBulletActive = false;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        isBulletActive = false;
                         break;
                 }
             }
@@ -386,23 +526,36 @@ public class myGame {
             @Override
             public void collision(Enemy sp1, Shooter sp2) {
                 shooterDeath.playOverlapping();
-                gameOver.playOverlapping();
-                sc.removeSprite(sp2);
+                //sc.removeSprite(sp2);
+                for (Enemy enemy : myGame.getActiveEnemies()) {
+                    enemy.setActive(false);
+                }
                 shooter.setX(BOARD_SIZE.width / 2);
                 shooter.setY(BOARD_SIZE.height / 2);
                 sc.addSprite(sp2);
                 shooter.lifeLost();
-                if (shooter.getLives() < lifeSprites.size()){
-                    Life lostLife = lifeSprites.get(lifeSprites.size() - 1);
-                    lostLife.setActive(false);
+                if (!lifeSprites.isEmpty()) {
+                    smartBomb.playOverlapping();
+                    shooterSpawn.playOverlapping();
+                    Sprite lifeSprite = lifeSprites.remove(lifeSprites.size() - 1);
+                    lifeSprite.setActive(false);
+                    sc.removeSprite(lifeSprite);
                 }
                 if (shooter.getLives() <= 0){
                     playerDied();
+                    gameOver.playOverlapping();
                     saveHighScore();
                     sp1.setActive(false);
                     sp2.setActive(false);
+                    ClockWorker.finish();
                     JOptionPane.showMessageDialog(sc, "You lose! Game Over!");
                     System.exit(0);
+                }
+                else{
+                    spritesToRemove.add(sp1);
+                }
+                for (Sprite sprite : spritesToRemove){
+                    sc.removeSprite(sprite);
                 }
             }
         });
@@ -450,6 +603,11 @@ public class myGame {
         
     }
 
+    public static List<Enemy> getActiveEnemies() {
+        // TODO Auto-generated method stub
+        return listOfEnemies;
+        //throw new UnsupportedOperationException("Unimplemented method 'getActiveEnemies'");
+    }
     public void loadHighScore() {
         try (BufferedReader reader = new BufferedReader(new FileReader(highScoreFile))) {
             String line = reader.readLine();
