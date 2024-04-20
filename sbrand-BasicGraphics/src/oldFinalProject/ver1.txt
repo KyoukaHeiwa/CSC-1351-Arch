@@ -91,7 +91,7 @@ public class myGame {
     private boolean isBulletActive = false;
 
 
-    private Timer rhombusEnemyTimer, weaverEnemyTimer, frameTimer;
+    private Timer rhombusEnemyTimer, weaverEnemyTimer;
 
     public static void main(String[] args) {
         myGame g = new myGame();
@@ -198,8 +198,8 @@ public class myGame {
 
         //scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
         gameTitle.setFont(new Font("Arial", Font.BOLD, 24));
-        gameTitle.setOpaque(true); 
-        gameTitle.setBackground(Color.BLACK);
+        gameTitle.setOpaque(true); // Make the background opaque
+        gameTitle.setBackground(Color.BLACK); // Set the background color to black
         gameTitle.setForeground(Color.WHITE);
         JButton jstart = new JButton("Start");
         jstart.addActionListener(new ActionListener() {
@@ -222,52 +222,52 @@ public class myGame {
                 themeSong.playOverlapping();
                 themeSong.loop();
                 shooterSpawn.playOverlapping();
-                // new Thread(() -> {
-                //     while (true) {
-                //         if (keys.contains(KeyEvent.VK_W)) {
-                //             shooter.setVelY(-2); // Move up
-                //         }
-                //         if (keys.contains(KeyEvent.VK_S)) {
-                //             shooter.setVelY(2); // Move down
-                //         }
-                //         if (keys.contains(KeyEvent.VK_A)) {
-                //             shooter.setVelX(-2); // Move left
-                //         }
-                //         if (keys.contains(KeyEvent.VK_D)) {
-                //             shooter.setVelX(2); // Move right
-                //         }
-                //         shooter.move();
-                //         //updateEnemies();
-                //         updateGameElements();
-                //         // Iterator<Enemy> iterator = listOfEnemies.iterator();
-                //         // while (iterator.hasNext()) {
-                //         //     Sprite sprite = iterator.next();
-                //         //     if (!sprite.isActive()) {
-                //         //         iterator.remove();
-                //         //     }
-                //         // }    
-                //         // If all enemies are inactive, spawn more enemies
-                //         // if (allEnemiesInactive) {
-                //         //     for(int i=0;i<ENEMIES;i++) {
-                //         //         RhombusEnemy rhombusEnemy = RhombusEnemy.createRhombusEnemy(sc);
-                //         //         PinwheelEnemy pinwheelEnemy = PinwheelEnemy.createPinwheelEnemy(sc);
-                //         //         WeaverEnemy weaverEnemy = WeaverEnemy.createWeaverEnemy(sc);
-                //         //         listOfEnemies.add(rhombusEnemy);
-                //         //         listOfEnemies.add(pinwheelEnemy);
-                //         //         listOfEnemies.add(weaverEnemy);
-                //         //         sc.addSprite(rhombusEnemy);
-                //         //         sc.addSprite(pinwheelEnemy);
-                //         //         sc.addSprite(weaverEnemy);
-                //         //     }
-                //         // }
+                new Thread(() -> {
+                    while (true) {
+                        if (keys.contains(KeyEvent.VK_W)) {
+                            shooter.setVelY(-2); // Move up
+                        }
+                        if (keys.contains(KeyEvent.VK_S)) {
+                            shooter.setVelY(2); // Move down
+                        }
+                        if (keys.contains(KeyEvent.VK_A)) {
+                            shooter.setVelX(-2); // Move left
+                        }
+                        if (keys.contains(KeyEvent.VK_D)) {
+                            shooter.setVelX(2); // Move right
+                        }
+                        shooter.move();
+                        //updateEnemies();
+                        updateGameElements();
+                        // Iterator<Enemy> iterator = listOfEnemies.iterator();
+                        // while (iterator.hasNext()) {
+                        //     Sprite sprite = iterator.next();
+                        //     if (!sprite.isActive()) {
+                        //         iterator.remove();
+                        //     }
+                        // }    
+                        // If all enemies are inactive, spawn more enemies
+                        // if (allEnemiesInactive) {
+                        //     for(int i=0;i<ENEMIES;i++) {
+                        //         RhombusEnemy rhombusEnemy = RhombusEnemy.createRhombusEnemy(sc);
+                        //         PinwheelEnemy pinwheelEnemy = PinwheelEnemy.createPinwheelEnemy(sc);
+                        //         WeaverEnemy weaverEnemy = WeaverEnemy.createWeaverEnemy(sc);
+                        //         listOfEnemies.add(rhombusEnemy);
+                        //         listOfEnemies.add(pinwheelEnemy);
+                        //         listOfEnemies.add(weaverEnemy);
+                        //         sc.addSprite(rhombusEnemy);
+                        //         sc.addSprite(pinwheelEnemy);
+                        //         sc.addSprite(weaverEnemy);
+                        //     }
+                        // }
         
-                //         try {
-                //             Thread.sleep(1000 / 60); // Update 60 times per second
-                //         } catch (InterruptedException ex) {
-                //             ex.printStackTrace();
-                //         }
-                //     }
-                // }).start();
+                        try {
+                            Thread.sleep(1000 / 60); // Update 60 times per second
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
 
@@ -321,27 +321,7 @@ public class myGame {
         bc2.add("Score", scoreLabel);
         bc2.add("High Score", highScoreLabel);
         bc2.add("Geometry Wars", sc);
-        ClockWorker.addTask(new Task() {
-                    public void run(){
-                        if (keys.contains(KeyEvent.VK_W)) {
-                            shooter.setVelY(-2); // Move up
-                        }
-                        if (keys.contains(KeyEvent.VK_S)) {
-                            shooter.setVelY(2); // Move down
-                        }
-                        if (keys.contains(KeyEvent.VK_A)) {
-                            shooter.setVelX(-2); // Move left
-                        }
-                        if (keys.contains(KeyEvent.VK_D)) {
-                            shooter.setVelX(2); // Move right
-                        }
-                        shooter.move();
-                        //updateEnemies();
-                        updateGameElements();
-                    }
-        });
-        ClockWorker.initialize(16);
-        frameTimer = new Timer();
+        
         pEnemyTimer = new Timer();
         rEnemyTimer = new Timer();
         wEnemyTimer = new Timer();
@@ -484,6 +464,54 @@ public class myGame {
         bc2.addKeyListener(shooterControlListener);
         
         
+        // new Thread(() -> {
+        //     while (true) {
+        //         if (keys.contains(KeyEvent.VK_W)) {
+        //             shooter.setVelY(-2); // Move up
+        //         }
+        //         if (keys.contains(KeyEvent.VK_S)) {
+        //             shooter.setVelY(2); // Move down
+        //         }
+        //         if (keys.contains(KeyEvent.VK_A)) {
+        //             shooter.setVelX(-2); // Move left
+        //         }
+        //         if (keys.contains(KeyEvent.VK_D)) {
+        //             shooter.setVelX(2); // Move right
+        //         }
+        //         shooter.move();
+        //         updateEnemies();
+        //         removeInactiveBullets();
+
+        //         boolean allEnemiesInactive = true;
+        //         for (Enemy enemy : listOfEnemies) {
+        //             if (enemy.isActive()) {
+        //                 allEnemiesInactive = false;
+        //                 break;
+        //             }
+        //         }
+
+        //         // If all enemies are inactive, spawn more enemies
+        //         if (allEnemiesInactive) {
+        //             for(int i=0;i<ENEMIES;i++) {
+        //                 RhombusEnemy rhombusEnemy = RhombusEnemy.createRhombusEnemy(sc);
+        //                 PinwheelEnemy pinwheelEnemy = PinwheelEnemy.createPinwheelEnemy(sc);
+        //                 WeaverEnemy weaverEnemy = WeaverEnemy.createWeaverEnemy(sc);
+        //                 listOfEnemies.add(rhombusEnemy);
+        //                 listOfEnemies.add(pinwheelEnemy);
+        //                 listOfEnemies.add(weaverEnemy);
+        //                 sc.addSprite(rhombusEnemy);
+        //                 sc.addSprite(pinwheelEnemy);
+        //                 sc.addSprite(weaverEnemy);
+        //             }
+        //         }
+
+        //         try {
+        //             Thread.sleep(1000 / 60); // Update 60 times per second
+        //         } catch (InterruptedException e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // }).start();
         MouseAdapter ma = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
@@ -571,6 +599,7 @@ public class myGame {
     public static List<Enemy> getActiveEnemies() {
         // TODO Auto-generated method stub
         return listOfEnemies;
+        //throw new UnsupportedOperationException("Unimplemented method 'getActiveEnemies'");
     }
     public void loadHighScore() {
         try (BufferedReader reader = new BufferedReader(new FileReader(highScoreFile))) {
@@ -584,6 +613,7 @@ public class myGame {
     }
 
 
+    // Save high score to file
     public void saveHighScore() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(highScoreFile))) {
             writer.write(String.valueOf(highScore));
@@ -592,6 +622,7 @@ public class myGame {
         }
     }
     
+    // Call this method whenever the player dies
     public void playerDied() {
         if (score > highScore) {
             highScore = score;
@@ -599,7 +630,15 @@ public class myGame {
         }
         score = 0; // Reset score
     }
-
+    // public void removeInactiveBullets() {
+    //     Iterator<Bullet> bulletIterator = listOfBullets.iterator();
+    //     while (bulletIterator.hasNext()) {
+    //         Bullet bullet = bulletIterator.next();
+    //         if (!bullet.isActive() || bullet.isOutOfGameArea()) {
+    //             bulletIterator.remove();
+    //         }
+    //     }
+    // }
     
 
     public void updateGameElements() {
@@ -609,7 +648,16 @@ public class myGame {
     }
     
     private void updateEnemies() {
-
+        // Iterator<Enemy> it = listOfEnemies.iterator();
+        // while (it.hasNext()) {
+        //     Enemy enemy = it.next();
+        //     if (enemy.shouldFollow) {
+        //         enemy.followShooter();
+        //     }
+        //     if (!enemy.isActive()) {
+        //         it.remove();
+        //     }
+        // }
         for(Enemy enemy : listOfEnemies) {
             if (enemy.shouldFollow) {
                 enemy.followShooter();
@@ -619,9 +667,20 @@ public class myGame {
             }
         }
     }
-
+    // private void updateEnemies() {
+    //     List<Enemy> toRemove = new ArrayList<>();
+    //     for (Enemy enemy : listOfEnemies) {
+    //         if (enemy.shouldFollow) {
+    //             enemy.followShooter();
+    //         }
+    //         if (!enemy.isActive()) {
+    //             toRemove.add(enemy);
+    //         }
+    //     }
+    //     listOfEnemies.removeAll(toRemove);
+    // }
     private void updateBullets() {
-        List<Bullet> toRemove = new ArrayList<>(); // LThis is holding my bullets that I want to remove
+        List<Bullet> toRemove = new ArrayList<>(); // List to hold bullets to be removed
     
         for (Bullet bullet : listOfBullets) {
             if (!bullet.isActive() || bullet.isOutOfGameArea()) {
@@ -629,6 +688,7 @@ public class myGame {
             }
         }
     
+        // Now remove all collected bullets from the main list outside of the iteration
         listOfBullets.removeAll(toRemove);
     }
     
@@ -672,17 +732,16 @@ public class myGame {
                 sp2.setActive(false);
                 myGame.removeEnemy(sp1);
                 enemyKillCount++;
-                
-                if (sp1 instanceof PinwheelEnemy) {
-                    score += 25 * scoreMultiplier; 
+                if (sp1 instanceof RhombusEnemy) {
+                    score += 50 * scoreMultiplier; // Increase the score by 25 if the enemy is a RhombusEnemy
+                    scoreLabel.setText("Score: " + score); // Update the score label
+                } else if (sp1 instanceof PinwheelEnemy) {
+                    score += 25 * scoreMultiplier; // Increase the score by 50 if the enemy is a PinwheelEnemy
+                    scoreLabel.setText("Score: " + score); // Update the score label
                 }
-                else if (sp1 instanceof RhombusEnemy) {
-                    score += 50 * scoreMultiplier; 
-                    scoreLabel.setText("Score: " + score); 
-                } 
                 else if (sp1 instanceof WeaverEnemy) {
-                    score += 100 * scoreMultiplier; 
-                    scoreLabel.setText("Score: " + score); 
+                    score += 100 * scoreMultiplier; // Increase the score by 50 if the enemy is a PinwheelEnemy
+                    scoreLabel.setText("Score: " + score); // Update the score label
                 }
                 if (enemyKillCount == enemiesToKill) {
                     scoreMultiplier++;
@@ -691,13 +750,13 @@ public class myGame {
                 if (score % 5000 == 0) {
                     myGame.bulletSpeedMultiplier *= 1.3;
                 }
-                // int killThreshold = 50;
-                // if (enemyKillCount == killThreshold) {
-                //     // JOptionPane.showMessageDialog(sc, "You win! Game Over!");
-                //     // System.exit(0);
-                //     killThreshold *= 1.3;
-                //     ENEMIES *= 1.3;
-                // }
+                int killThreshold = 50;
+                if (enemyKillCount == killThreshold) {
+                    // JOptionPane.showMessageDialog(sc, "You win! Game Over!");
+                    // System.exit(0);
+                    killThreshold *= 1.3;
+                    ENEMIES *= 1.3;
+                }
             }
         });
     }

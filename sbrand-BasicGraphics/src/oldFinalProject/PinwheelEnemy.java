@@ -15,9 +15,11 @@ import basicgraphics.sounds.ReusableClip;
 import java.awt.*;
 
 public class PinwheelEnemy extends Enemy {
+
     public PinwheelEnemy(SpriteComponent sc, Picture sprite) {
         super(sc, sprite);
         setPicture(sprite);
+        this.shouldFollow = false;
         //setVelocity();
     }
 
@@ -27,7 +29,7 @@ public class PinwheelEnemy extends Enemy {
         boolean positionValid = false;
         int attempts = 0;
     
-        // Initialize Random inside the method to avoid issues with improper reseeding or shared instances
+        
         Random localRand = new Random();
     
         while (!positionValid && attempts < 100) {
@@ -48,7 +50,7 @@ public class PinwheelEnemy extends Enemy {
             attempts++;
         }
     
-        // Fallback to center if no valid position is found
+        // This is a fallback position if no valid position was found
         if (!positionValid) {
             if (pEnemy == null) {
                 pEnemy = new PinwheelEnemy(sc, pinwheelSprite);
@@ -62,13 +64,12 @@ public class PinwheelEnemy extends Enemy {
     }
     
     private void setVelocity() {
-        // Ensure a fresh random object or a properly randomized instance
         Random localRand = new Random();
     
-        // Generate random velocity components, ensuring they vary adequately
-        double speedFactor = 0.8; // Adjust the base speed factor if needed
-        double vx = speedFactor * (localRand.nextDouble() * 2 - 1); // Random speed between -0.8 and 0.8
-        double vy = speedFactor * (localRand.nextDouble() * 2 - 1); // Random speed between -0.8 and 0.8
+        
+        double speedFactor = 0.8; 
+        double vx = speedFactor * (localRand.nextDouble() * 2 - 1); 
+        double vy = speedFactor * (localRand.nextDouble() * 2 - 1); 
     
         setVel(vx, vy);
     }
@@ -86,24 +87,24 @@ public class PinwheelEnemy extends Enemy {
         g.setColor(new Color(210, 145, 255));
         g.setStroke(new BasicStroke(2));
     
-        // Arrays to store endpoints of the main straight lines
-        int[] endXs = new int[8];
-        int[] endYs = new int[8];
+        
+        int[] endX = new int[8];
+        int[] endY = new int[8];
     
         // Draw the initial set of straight lines (main lines)
         for (int i = 0; i < 8; i++) {  
-            double angle = i * (Math.PI / 4); // 0, 45, 90, ... 315 degrees
-            endXs[i] = centerX + (int) (length * Math.cos(angle));
-            endYs[i] = centerY + (int) (length * Math.sin(angle));
-            g.drawLine(centerX, centerY, endXs[i], endYs[i]);
+            double angle = i * (Math.PI / 4); 
+            endX[i] = centerX + (int) (length * Math.cos(angle));
+            endY[i] = centerY + (int) (length * Math.sin(angle));
+            g.drawLine(centerX, centerY, endX[i], endY[i]);
         }
     
-        // Draw additional diagonal lines connecting each main line to the next
+        
         for (int i = 0; i < 8; i++) {
-            // Calculate indices for connecting lines
-            int nextIndex = (i + 1) % 8; // Circular index to wrap around
-            if (i % 2 == 1) {  // Only add extensions at 45, 135, 225, 315 degrees
-                g.drawLine(endXs[i], endYs[i], endXs[nextIndex], endYs[nextIndex]);
+            
+            int nextIndex = (i + 1) % 8;
+            if (i % 2 == 1) {  
+                g.drawLine(endX[i], endY[i], endX[nextIndex], endY[nextIndex]);
             }
         }
     
@@ -112,12 +113,12 @@ public class PinwheelEnemy extends Enemy {
     
     public void update() {
 
-        // Check for collision with left or right boundary
+        //top boundary
         if (getX() < 0 || getX() + getWidth() > myGame.BOARD_SIZE.width) {
             setVel(-getVelX(), getVelY()); // Reverse x velocity
         }
 
-        // Check for collision with top or bottom boundary
+        // bottom boundary
         if (getY() < 0 || getY() + getHeight() > myGame.BOARD_SIZE.height) {
             setVel(getVelX(),-getVelY()); // Reverse y velocity
         }

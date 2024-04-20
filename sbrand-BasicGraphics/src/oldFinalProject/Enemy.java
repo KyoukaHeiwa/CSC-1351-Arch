@@ -20,6 +20,7 @@ import basicgraphics.sounds.ReusableClip;
  */
 public class Enemy extends Sprite {
     static int enemyCount;
+     boolean shouldFollow = false;
     
     @Override
     public void setActive(boolean b) {

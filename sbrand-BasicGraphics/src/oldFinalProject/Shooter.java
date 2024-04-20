@@ -81,7 +81,6 @@ public class Shooter extends Sprite {
         return movementSpeed;
     }
     
-    // Call this method to update the position based on velocity
     public void move() {
         double newX = getX() + velX;
         double newY =  getY() + velY;

@@ -12,11 +12,12 @@ import basicgraphics.images.Picture;
 import java.awt.*;
 
 public class WeaverEnemy extends Enemy {
-    private static final int DODGE_DISTANCE = 50; // The distance at which the enemy starts to dodge bullets
+    private static final int DODGE_DISTANCE = 50; 
 
     public WeaverEnemy(SpriteComponent sc, Picture sprite) {
         super(sc, sprite);
         setPicture(sprite);
+        this.shouldFollow = true;
     }
 
     
@@ -47,26 +48,26 @@ public class WeaverEnemy extends Enemy {
         Graphics2D g2 = (Graphics2D) image.getGraphics();
     
         g2.setColor(Color.GREEN);
-        g2.fillRect(0, 0, size, size); // Fill the entire image with green
+        g2.fillRect(0, 0, size, size); 
     
-        int outerSize = (int) Math.round(size / Math.sqrt(2)); // Calculate the side length of the outer box
-        int outerOffset = (size - outerSize) / 2; // Calculate the offset to center the outer box
+        int outerSize = (int) Math.round(size / Math.sqrt(2)); 
+        int outerOffset = (size - outerSize) / 2; 
     
         g2.setColor(Color.BLACK);
-        g2.fillRect(outerOffset, outerOffset, outerSize, outerSize); // Draw the outer box
+        g2.fillRect(outerOffset, outerOffset, outerSize, outerSize); 
     
-        int middleSize = (int) Math.round(Math.sqrt(2) * outerSize / 2); // Calculate the diagonal of the outer box
-        int middleOffset = (size - middleSize) / 2; // Calculate the offset to center the middle box
+        int middleSize = (int) Math.round(Math.sqrt(2) * outerSize / 2); 
+        int middleOffset = (size - middleSize) / 2; 
     
         g2.setColor(Color.GREEN);
-        g2.rotate(Math.toRadians(45), size / 2, size / 2); // Rotate the graphics context by 45 degrees around the center of the image
-        g2.fillRect(middleOffset, middleOffset, middleSize, middleSize); // Draw the middle box
+        g2.rotate(Math.toRadians(45), size / 2, size / 2); 
+        g2.fillRect(middleOffset, middleOffset, middleSize, middleSize); 
     
-        int innerSize = (int) Math.round(Math.sqrt(2) * middleSize / 2); // Calculate the diagonal of the middle box
-        int innerOffset = (size - innerSize) / 2; // Calculate the offset to center the inner box
+        int innerSize = (int) Math.round(Math.sqrt(2) * middleSize / 2); 
+        int innerOffset = (size - innerSize) / 2; 
     
         g2.setColor(Color.BLACK);
-        g2.fillRect(innerOffset, innerOffset, innerSize, innerSize); // Draw the inner box
+        g2.fillRect(innerOffset, innerOffset, innerSize, innerSize); 
     
         return new Picture(image);
     }
@@ -102,7 +103,6 @@ public class WeaverEnemy extends Enemy {
                 }
                 wEnemy.setX(x);
                 wEnemy.setY(y);
-                //wEnemy.setVelocity();  // Assuming WeaverEnemy has a setVelocity method
                 positionValid = true;
             }
     
@@ -132,7 +132,7 @@ public class WeaverEnemy extends Enemy {
         double sY = shooter.getCenterY();
 
         double angle = Math.atan2(sY - this.getCenterY(), sX - this.getCenterX());
-        double enemySpeed = .8; //This is the speed of the enemy
+        double enemySpeed = .8; 
 
         this.setVel(enemySpeed * Math.cos(angle), enemySpeed * Math.sin(angle));
     }

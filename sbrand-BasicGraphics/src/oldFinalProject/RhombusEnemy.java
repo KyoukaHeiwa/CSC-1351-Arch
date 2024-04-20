@@ -14,6 +14,7 @@ public class RhombusEnemy extends Enemy {
     public RhombusEnemy(SpriteComponent sc, Picture sprite) {
         super(sc, sprite);
         setPicture(sprite);
+        this.shouldFollow = true;
     }
 
     public static Picture createRhombusSprite(int size) {
@@ -36,12 +37,12 @@ public class RhombusEnemy extends Enemy {
     }
 
     public static RhombusEnemy createRhombusEnemy(SpriteComponent sc) {
-        Picture rhombusSprite = createRhombusSprite(30); // Ensure this method exists and creates an appropriate sprite
+        Picture rhombusSprite = createRhombusSprite(30);
         RhombusEnemy rEnemy = null;
         boolean positionValid = false;
         int attempts = 0;
     
-        Random localRand = new Random(); // Local instance to ensure unique randomness
+        Random localRand = new Random(); 
     
         while (!positionValid && attempts < 100) {
             int x = localRand.nextInt(myGame.BOARD_SIZE.width - myGame.SMALL);
@@ -54,7 +55,7 @@ public class RhombusEnemy extends Enemy {
                 }
                 rEnemy.setX(x);
                 rEnemy.setY(y);
-                //rEnemy.setVelocity();  // Assuming RhombusEnemy has a setVelocity method similar to the other enemies
+                
                 positionValid = true;
             }
     
@@ -85,7 +86,7 @@ public class RhombusEnemy extends Enemy {
         double sY = shooter.getCenterY();
 
         double angle = Math.atan2(sY - this.getCenterY(), sX - this.getCenterX());
-        double enemySpeed = .65; //Enemey's speed
+        double enemySpeed = .65; 
         
         this.setVel(enemySpeed * Math.cos(angle), enemySpeed * Math.sin(angle));
     }

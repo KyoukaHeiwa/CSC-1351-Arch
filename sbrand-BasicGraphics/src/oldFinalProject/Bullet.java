@@ -24,13 +24,13 @@ import java.awt.image.BufferedImage;
 class Bullet extends Sprite {
     Bullet(SpriteComponent sc, Sprite sp, int direction) {
         super(sc);
-        double angle = 0; // Default angle facing right
+        double angle = 0; 
         if (direction == KeyEvent.VK_DOWN)
-            angle = Math.PI / 2; // 90 degrees
+            angle = Math.PI / 2;
         else if (direction == KeyEvent.VK_UP)
-            angle = -Math.PI / 2; // -90 degrees
+            angle = -Math.PI / 2;
         else if (direction == KeyEvent.VK_LEFT)
-            angle = Math.PI; // 180 degrees
+            angle = Math.PI; 
         
         setPicture(makeTriangleBullet(angle));
         setCenterX(sp.centerX());
@@ -56,27 +56,23 @@ class Bullet extends Sprite {
         return this.getX() < 0 || this.getX() > myGame.BOARD_SIZE.getWidth() || this.getY() < 0 || this.getY() > myGame.BOARD_SIZE.getHeight();
     }
     private Picture makeTriangleBullet(double angle) {
-        int size = 20; // Size of the bullet
+        int size = 20; 
         BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) image.getGraphics();
     
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     
-        // Define the coordinates for an isosceles triangle
         int[] xPoints = {size / 2, 5, size - 5};
         int[] yPoints = {5, size - 5, size - 5};
     
-        // Create a new transform for rotation around the center of the image
         AffineTransform transform = new AffineTransform();
         transform.rotate(angle, size / 2, size / 2);
         g.setTransform(transform);
     
-        // Draw the outer triangle (yellow)
         g.setColor(Color.YELLOW);
         g.fillPolygon(xPoints, yPoints, 3);
     
-        // Draw the inner triangle (black) for visual effect
-        int shrink = 3; // margin from the base of the triangle
+        int shrink = 3; 
         int[] xInnerPoints = {size / 2, 5 + shrink, size - 5 - shrink};
         int[] yInnerPoints = {5 + shrink, size - 5, size - 5};
         g.setColor(Color.BLACK);
