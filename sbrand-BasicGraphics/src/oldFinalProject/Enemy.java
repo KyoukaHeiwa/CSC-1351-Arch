@@ -5,8 +5,6 @@
  */
 package oldFinalProject;
 
-import java.awt.Dimension;
-
 import basicgraphics.CollisionEventType;
 import basicgraphics.Sprite;
 import basicgraphics.SpriteCollisionEvent;
@@ -39,7 +37,6 @@ public class Enemy extends Sprite {
         setPicture(sprite);;
         initPosition();
         setVelocity();
-        // A random speed
     }
     private void setVelocity() {
         setVel(1 * myGame.RAND.nextDouble() - 1, 1 * myGame.RAND.nextDouble());
@@ -93,27 +90,23 @@ public class Enemy extends Sprite {
     // @Override
     // public void move(Dimension d)
     public void followShooter() {
-        Shooter shooter = myGame.getShooter(); // Assuming you have a method to get the current shooter
+        Shooter shooter = myGame.getShooter();
         double enemyX = getX();
         double enemyY = getY();
         double shooterX = shooter.getX();
         double shooterY = shooter.getY();
 
-        // Calculate the direction vector from enemy to shooter
         double directionX = shooterX - enemyX;
         double directionY = shooterY - enemyY;
         double magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
         
-        // Normalize the direction
         if (magnitude > 0) {
             directionX /= magnitude;
             directionY /= magnitude;
         }
 
-        // Set the new velocity to make the enemy follow the shooter
         setVel(directionX * getSpeed(), directionY * getSpeed());
 
-        // Call the original move method to apply the velocity
         super.move(myGame.BOARD_SIZE);
     }
 

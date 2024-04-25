@@ -176,8 +176,8 @@ public class Sprite implements MouseListener, Comparable<Sprite> {
     public double getHeight() {
         return p.getHeight();
     }
-    //Had to make public
-    public void move(Dimension d) {
+
+    protected void move(Dimension d) {
         moveTo();
         x += velx;
         y += vely;

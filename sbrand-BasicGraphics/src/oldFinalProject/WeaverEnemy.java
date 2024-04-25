@@ -46,6 +46,7 @@ public class WeaverEnemy extends Enemy {
     public static Picture createWeaverSprite(int size) {
         BufferedImage image = BasicFrame.createImage(size, size);
         Graphics2D g2 = (Graphics2D) image.getGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     
         g2.setColor(Color.GREEN);
         g2.fillRect(0, 0, size, size); 

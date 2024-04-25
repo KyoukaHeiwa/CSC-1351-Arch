@@ -5,11 +5,11 @@
         "sbrand-BasicGraphics/piraha.jar"
     ],
     "java.project.sourcePaths": [
-        "stevenrbrandt-BasicGraphics-2231504/src",
+        "sbrand-BasicGraphics/src",
         "WarriorsAndWeapons/src",
         "Tombs2",
         "Tombs/src",
         "CSC 1351/src",
-        "sbrand-BasicGraphics/src"
+        "wildbtree"
     ]
 }

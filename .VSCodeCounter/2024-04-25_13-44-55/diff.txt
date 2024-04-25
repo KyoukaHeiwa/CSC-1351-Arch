@@ -1,0 +1,36 @@
+Date : 2024-04-25 13:44:55
+Directory : /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject
+Total : 12 files,  52 codes, -128 comments, -16 blanks, all -92 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         12 |         52 |       -128 |        -16 |        -92 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                       | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                          |         12 |         52 |       -128 |        -16 |        -92 |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                   | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Bomb.java          | Java     |         37 |          0 |         11 |         48 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Bullet.java        | Java     |          1 |         -2 |         -3 |         -4 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Enemy.java         | Java     |         -1 |         -5 |         -1 |         -7 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/EnemyCreator.java  | Java     |          0 |        -54 |        -15 |        -69 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Life.java          | Java     |         -6 |          0 |          0 |         -6 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/PinwheelEnemy.java | Java     |          1 |         -2 |          0 |         -1 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/RhombusEnemy.java  | Java     |          0 |          0 |         -1 |         -1 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Shooter.java       | Java     |          9 |          0 |         -1 |          8 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/Stars.java         | Java     |          0 |         -1 |          0 |         -1 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/TitleScreen.java   | Java     |          0 |        -25 |         -4 |        -29 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/WeaverEnemy.java   | Java     |          1 |          0 |          0 |          1 |
+| /home/brandonef/Documents/Spring 2024/CSC 1351/sbrand-BasicGraphics/src/oldFinalProject/myGame.java        | Java     |         10 |        -39 |         -2 |        -31 |
+| Total                                                                                                      |          |         52 |       -128 |        -16 |        -92 |
++------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

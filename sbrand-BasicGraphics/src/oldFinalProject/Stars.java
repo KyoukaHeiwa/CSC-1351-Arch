@@ -15,11 +15,10 @@ public class Stars extends Sprite {
     
     public Color getRandomColor(){
         int[] rgb = new int[3];
-        rgb[0] = 255; // Full intensity
-        rgb[1] = rand.nextInt(128); // Half intensity or less
-        rgb[2] = rand.nextInt(128); // Half intensity or less
+        rgb[0] = 255; 
+        rgb[1] = rand.nextInt(128); 
+        rgb[2] = rand.nextInt(128); 
     
-        // Randomly shuffle the RGB components
         for (int i = 0; i < 3; i++) {
             int j = rand.nextInt(3);
             int tmp = rgb[i];
@@ -75,12 +74,12 @@ public class Stars extends Sprite {
     }
     public void update() {
 
-        // Check for collision with left or right boundary
+        //left or right boundary
         if (getX() < 0 || getX() + getWidth() > myGame.BOARD_SIZE.width) {
             setVel(-getVelX(), getVelY()); // Reverse x velocity
         }
 
-        // Check for collision with top or bottom boundary
+        //top or bottom boundary
         if (getY() < 0 || getY() + getHeight() > myGame.BOARD_SIZE.height) {
             setVel(getVelX(),-getVelY()); // Reverse y velocity
         }

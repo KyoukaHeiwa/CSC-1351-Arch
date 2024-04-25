@@ -6,6 +6,29 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BTree3",
+            "request": "launch",
+            "mainClass": "Examples.Binary_Trees.BTree3",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "WildBTree",
+            "request": "launch",
+            "mainClass": "WildBTree",
+            "projectName": "CSC 1351_af1640a7",
+            "args": "NodeImp",
+            "vmArgs": "-ea"
+        },
+        {
+            "type": "java",
+            "name": "BTree",
+            "request": "launch",
+            "mainClass": "Examples.Binary_Trees.BTree",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
             "name": "BTree4",
             "request": "launch",
             "mainClass": "Examples.Binary_Trees.BTree4",

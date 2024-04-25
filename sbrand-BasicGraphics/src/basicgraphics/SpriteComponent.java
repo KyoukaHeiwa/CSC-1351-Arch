@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.CopyOnWriteArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
@@ -45,7 +45,7 @@ public class SpriteComponent extends JComponent implements MouseListener {
         setPreferredSize(new Dimension(100, 100));
         addMouseListener(this);
     }
-    //Had to make it public
+
     public void addSprite(Sprite sp) {
         sprites.add(sp);
     }
@@ -53,7 +53,7 @@ public class SpriteComponent extends JComponent implements MouseListener {
     public void removeSprite(Sprite sp) {
         sprites.remove(sp);
     }
-
+    
     public void paintBackground(Graphics g) {
         Dimension d = getSize();
         g.setColor(Color.white);
@@ -72,17 +72,18 @@ public class SpriteComponent extends JComponent implements MouseListener {
         return oldValue;
     }
 
-    public final void paintSprites(Graphics g_) {
+    public final void paintSprites(final Graphics g_) {
         try {
-            Runnable run =()->{
-                Graphics2D g = (Graphics2D)g_;
+            Runnable run = ()->{
+                Graphics2D g = (Graphics2D) g_;
                 //Collections.sort(sprites, DRAWING_PRIORITY);
                 for (Sprite sprite : new ArrayList<>(sprites)) {
-                    if(!sprite.is_visible)
+                    if (!sprite.is_visible) {
                         continue;
+                    }
                     AffineTransform at = sprite.getTransform();
                     g.drawImage(sprite.getPicture().getImage(), at, null);
-                    if(drawBox) {
+                    if (drawBox) {
                         g.setTransform(at);
                         g.setColor(Color.black);
                         int w = (int) sprite.getWidth();
@@ -91,18 +92,15 @@ public class SpriteComponent extends JComponent implements MouseListener {
                     }
                 }
             };
-            if (SwingUtilities.isEventDispatchThread()) {
+            if(SwingUtilities.isEventDispatchThread())
                 run.run();
-            }
-            else {
+            else
                 SwingUtilities.invokeAndWait(run);
-            }
-        } catch (InvocationTargetException | InterruptedException e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            TaskRunner.report(e, this);
+        } catch (InterruptedException ex) {
+            TaskRunner.report(ex, this);
+        } catch (InvocationTargetException ex) {
+            TaskRunner.report(ex, this);
         }
-
     }
     
     public boolean scroll(int x,int y,int s) {
@@ -256,31 +254,6 @@ public class SpriteComponent extends JComponent implements MouseListener {
         detectCollisions(spriteLoop);
         repaint();
     }
-    
-    /*
-     * The ConcurrentModificationException is thrown when an object is concurrently modified while iterating over it. In your case, it seems like the sprites list in the SpriteComponent class is being modified while it's being iterated over in the moveSprites_ method.
-     */
-    /*
-     * In this fix, I've created a copy of the sprites list before iterating over it. This allows us to modify the original sprites list without causing a ConcurrentModificationException.
-     */
-    // private void moveSprites_() {
-    //     Dimension d = getSize();
-    //     if (d.width == 0 || d.height == 0) {
-    //         return;
-    //     }
-    //     List<Sprite> spriteLoop = new CopyOnWriteArrayList<>(sprites);
-    //     for (Iterator<Sprite> iter = spriteLoop.iterator(); iter.hasNext();) {
-    //         Sprite sp = iter.next();
-    //         if (!sp.isActive()) {
-    //             sprites.remove(sp);
-    //         }
-    //     }
-    //     for (Sprite sp : spriteLoop) {
-    //         sp.move(d);
-    //     }
-    //     detectCollisions(spriteLoop);
-    //     repaint();
-    // }
 
     /**
      * Usually you subclass a MouseAdapter to handle mouse events. It should
@@ -374,8 +347,8 @@ public class SpriteComponent extends JComponent implements MouseListener {
 
     @Override
     public final void mouseClicked(MouseEvent e) {
-        SwingUtilities.invokeLater(()->{
-            for(Sprite sp : intersects(e)) {
+        SwingUtilities.invokeLater(() -> {
+            for (Sprite sp : intersects(e)) {
                 sp.mouseClicked(e);
             }
         });
@@ -387,7 +360,7 @@ public class SpriteComponent extends JComponent implements MouseListener {
     public final void mousePressed(MouseEvent e) {
         SwingUtilities.invokeLater(()->{
             MouseEvent e2 = reMouse(e);
-            for(Sprite sp : intersects(e2)) {
+            for (Sprite sp : intersects(e2)) {
                 sp.mousePressed(e2);
                 heardMousePressed.add(sp);
             }
@@ -397,7 +370,7 @@ public class SpriteComponent extends JComponent implements MouseListener {
     @Override
     public final void mouseReleased(MouseEvent e) {
         SwingUtilities.invokeLater(()->{
-            for(Sprite sp : heardMousePressed) {
+            for (Sprite sp : heardMousePressed) {
                 sp.mouseReleased(reMouse(e));
             }
             heardMousePressed.clear();
@@ -407,7 +380,7 @@ public class SpriteComponent extends JComponent implements MouseListener {
     @Override
     public final void mouseEntered(MouseEvent e) {
         SwingUtilities.invokeLater(()->{
-            for(Sprite sp : intersects(e)) {
+            for (Sprite sp : intersects(e)) {
                 sp.mouseEntered(reMouse(e));
             }
         });
@@ -415,8 +388,8 @@ public class SpriteComponent extends JComponent implements MouseListener {
 
     @Override
     public final void mouseExited(MouseEvent e) {
-        SwingUtilities.invokeLater(()->{
-            for(Sprite sp : intersects(e)) {
+        SwingUtilities.invokeLater(() -> {
+            for (Sprite sp : intersects(e)) {
                 sp.mouseExited(reMouse(e));
             }
         });

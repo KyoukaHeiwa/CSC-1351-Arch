@@ -50,7 +50,6 @@ public class PinwheelEnemy extends Enemy {
             attempts++;
         }
     
-        // This is a fallback position if no valid position was found
         if (!positionValid) {
             if (pEnemy == null) {
                 pEnemy = new PinwheelEnemy(sc, pinwheelSprite);
@@ -83,7 +82,8 @@ public class PinwheelEnemy extends Enemy {
         int centerX = w / 2;
         int centerY = h / 2;
         int length = w / 2;
-    
+        
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(new Color(210, 145, 255));
         g.setStroke(new BasicStroke(2));
     
@@ -91,7 +91,6 @@ public class PinwheelEnemy extends Enemy {
         int[] endX = new int[8];
         int[] endY = new int[8];
     
-        // Draw the initial set of straight lines (main lines)
         for (int i = 0; i < 8; i++) {  
             double angle = i * (Math.PI / 4); 
             endX[i] = centerX + (int) (length * Math.cos(angle));

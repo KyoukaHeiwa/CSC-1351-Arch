@@ -52,7 +52,6 @@ class Bullet extends Sprite {
     }
     
     public boolean isOutOfGameArea() {
-        // Replace GAME_AREA_WIDTH and GAME_AREA_HEIGHT with the actual dimensions of your game area
         return this.getX() < 0 || this.getX() > myGame.BOARD_SIZE.getWidth() || this.getY() < 0 || this.getY() > myGame.BOARD_SIZE.getHeight();
     }
     private Picture makeTriangleBullet(double angle) {
@@ -60,7 +59,7 @@ class Bullet extends Sprite {
         BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) image.getGraphics();
     
-        //g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     
         int[] xPoints = {size / 2, 5, size - 5};
         int[] yPoints = {5, size - 5, size - 5};
@@ -80,6 +79,4 @@ class Bullet extends Sprite {
     
         return new Picture(image);
     }
-    
-    
 }

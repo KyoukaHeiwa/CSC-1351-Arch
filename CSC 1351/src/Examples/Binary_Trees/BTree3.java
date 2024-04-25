@@ -1,18 +1,26 @@
 package Examples.Binary_Trees;
 
 import java.io.*;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * This version of the BTree contains Comparables instead of
  * simple characters. Note, however, that char is autoboxed to
  * Character, which implements Comparable.
  */
-class Node3 {
-  Comparable c;
-  Node3 left, right;
+class Node3<T >{
+  T c;
+  Node3<T> left, right;
 
-  Node3(Comparable c) {
+  Node3(T c) {
     this.c = c;
+  }
+  public static <A> void addList(List<A> list, A value) {
+    //if(value == null) return;
+    //addList(list,value.left);
+    list.add(value);
+    //addList(list,n.right);
   }
 
   /**
@@ -45,14 +53,18 @@ class Node3 {
   }
 }
 
-public class BTree3 {
-  Node3 head;
+public class BTree3<T> {
+  Node3<T> head;
+  Comparator<T> cmp;
+  public BTree3(Comparator<T> cmp) {
+    this.cmp = cmp;
+  }
 
   public int height() {
     return height(head);
   }
 
-  int height(Node3 Node3) {
+  int height(Node3<T> Node3) {
     if(Node3 == null) return 0;
     int hl = height(Node3.left);
     int hr = height(Node3.right);
@@ -70,20 +82,20 @@ public class BTree3 {
     else return 1 + nodeCount(Node3.left) + nodeCount(Node3.right);
   }
 
-  public void add(Comparable c) {
+  public void add(T c) {
     if(head == null)
         head = new Node3(c);
     else
         add(head,c);
   }
-  void add(Node3 n,Comparable c) {
-    if(c.compareTo(n.c) < 0) {
-        if(n.left == null) n.left = new Node3(c);
-        else add(n.left,c);
+  void add(Node3<T> n, T c) {
+    if (cmp.compare(c, n.c) < 0) {
+      if (n.left == null) n.left = new Node3<>(c);
+      else add(n.left, c);
     }
-    if(n.c.compareTo(c) < 0) {
-        if(n.right == null) n.right = new Node3(c);
-        else add(n.right,c);
+    if (cmp.compare(n.c, c) < 0) {
+      if (n.right == null) n.right = new Node3<>(c);
+      else add(n.right, c);
     }
   }
 
@@ -120,20 +132,27 @@ public class BTree3 {
    * Determine if the character c
    * is contained within the BTree3.
    */
-  public boolean contains(Comparable c) {
+  public boolean contains(T c) {
     return contains(head,c);
   }
-  boolean contains(Node3 node3,Comparable c) {
+  boolean contains(Node3<T> node3,T c) {
     if(node3 == null) return false;
-    int cmp = node3.c.compareTo(c);
-    if(cmp==0) return true;
-    if(cmp > 0 && contains(node3.left,c)) return true;
-    if(cmp < 0 && contains(node3.right,c)) return true;
+    //int cmp = node3.c.compareTo(c);
+    int diff = cmp.compare(node3.c,c);
+    if(diff==0) return true;
+    if(diff > 0 && contains(node3.left,c)) return true;
+    if(diff < 0 && contains(node3.right,c)) return true;
     return false;
   }
 
   public static void main(String[] args) throws Exception {
-    BTree3 bt = new BTree3();
+    Comparator<Character> cmp = new Comparator<Character>() {
+        public int compare(Character c1,Character c2) {
+            return c1.compareTo(c2);
+        }
+    };
+        BTree3<Character> bt = new BTree3(cmp);
+
     // Note that there's only one 'g' in the tree, despite
     // the fact that we added it twice. Each element is
     // unique.
@@ -147,5 +166,6 @@ public class BTree3 {
             System.out.printf("Tree contains %c%n",c);
         else
             System.out.printf("Tree does not contain %c%n",c);
+    
   }
 }

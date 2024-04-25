@@ -2,6 +2,7 @@ package oldFinalProject;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import basicgraphics.images.Picture;
 public class Shooter extends Sprite {
     private double velX = 0;
     private int lives = 3;
+    private int bombs = 3;
     private double velY = 0;
     static final double SPEED = 1.0;
     static double movementSpeed = 1;
@@ -58,6 +60,7 @@ public class Shooter extends Sprite {
         int h = image.getHeight();
         int[] x = {w / 2, w, w / 2, 0};
         int[] y = {0, h / 2, h, h / 2};
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.WHITE);
         g2.fillPolygon(x, y, 4);
         
@@ -101,5 +104,10 @@ public class Shooter extends Sprite {
     public int getLives(){
         return lives;
     }
-    
+    public void bombLost() {
+        bombs--;
+    }
+    public int getBombs(){
+        return bombs;
+    }
 }

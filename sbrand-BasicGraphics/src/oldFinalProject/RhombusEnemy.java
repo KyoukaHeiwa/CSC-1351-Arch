@@ -7,9 +7,7 @@ import java.util.Random;
 import basicgraphics.BasicFrame;
 import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
-import java.awt.*;
-import oldFinalProject.Enemy; // Add the missing import statement for the Enemy class
-
+import java.awt.*; 
 public class RhombusEnemy extends Enemy {
     public RhombusEnemy(SpriteComponent sc, Picture sprite) {
         super(sc, sprite);
@@ -26,6 +24,7 @@ public class RhombusEnemy extends Enemy {
         int[] y = {0, h / 2, h, h / 2};
         g2.setColor(Color.CYAN);
         g2.fillPolygon(x, y, 4);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         int inside = size / 8;
         int[] innerX = {w /2 , w - inside, w / 2, inside};
