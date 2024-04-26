@@ -1,128 +1,113 @@
 package FinalProject;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+import basicgraphics.BasicFrame;
 import basicgraphics.Sprite;
+import basicgraphics.SpriteCollisionEvent;
 import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 public class Shooter extends Sprite {
+    private double velX = 0;
+    private int lives = 3;
+    private int bombs = 3;
+    private double velY = 0;
+    static final double SPEED = 1.0;
+    static double movementSpeed = 1;
+//    private List<Life> lifeSprites = new ArrayList<>();
 
-    private double bulletSpeedMultiplier = 1.0;
-    private boolean movingLeft = false;
-    private boolean movingRight = false;
-    private boolean movingUp = false;
-    private boolean movingDown = false;
-    private boolean hasPowerUp = false;
-    private Color shooterColor = Game.SHOOTER_COLOR; // Default color
+    //final static ReusableClip shooterWallCollide = new ReusableClip("Ship_hitwall.wav");
+    
+    @Override
+    public void processEvent(SpriteCollisionEvent ev) {
+        SpriteComponent sc = getSpriteComponent();
+        if (ev.xlo){
+            setX(sc.getSize().width-getWidth());
+            //shooterWallCollide.playOverlapping();
+        }
+        if (ev.xhi) {
+            setX(0);
+            //shooterWallCollide.playOverlapping();
 
+        }
+        if (ev.ylo) {
+            setY(sc.getSize().height - getHeight());
+            //shooterWallCollide.playOverlapping();
+
+        }
+        if (ev.yhi) {
+            setY(0);
+            //shooterWallCollide.playOverlapping();
+
+        }
+    }
     public Shooter(SpriteComponent sc) {
         super(sc);
-        setPicture(Game.makeBall(shooterColor, Game.BIG));
-        setX(Game.BOARD_SIZE.width / 2);
-        setY(Game.BOARD_SIZE.height / 2);
+        setPicture(createDiamondSprite(30));
+        setX(myGame.BOARD_SIZE.width / 2);
+        setY(myGame.BOARD_SIZE.height / 2);
+    }
+    public static Picture createDiamondSprite(int size) {
+        BufferedImage image = BasicFrame.createImage(30,30);
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        int w = image.getWidth();
+        int h = image.getHeight();
+        int[] x = {w / 2, w, w / 2, 0};
+        int[] y = {0, h / 2, h, h / 2};
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(Color.WHITE);
+        g2.fillPolygon(x, y, 4);
+        
+        int inside = size / 8;
+        int[] innerX = {w /2 , w - inside, w / 2, inside};
+        int[] innerY = {inside, h / 2, h - inside, h / 2};
+        g2.setColor(Color.BLACK);
+        g2.fillPolygon(innerX, innerY, 4);
+        
+        return new Picture(image);
     }
 
-    public void activatePowerUp() {
-        hasPowerUp = true;
-        changeColor();
-    }
-    public void deactivatePowerUp() {
-        hasPowerUp = false;
-        changeColor();
+    public void setVelX(double velX) {
+        this.velX = velX;
     }
 
-    private void changeColor() {
-
-        if (hasPowerUp) {
-            shooterColor = Color.BLACK; // Change to green when power-up is activated
-        } else {
-            shooterColor = Game.SHOOTER_COLOR; // Change back to default color
+    public void setVelY(double velY) {
+        this.velY = velY;
+    }
+    public double getMovementSpeed() {
+        return movementSpeed;
+    }
+    
+    public void move() {
+        double newX = getX() + velX;
+        double newY =  getY() + velY;
+        if (newX < 0 || newX > getSpriteComponent().getSize().width - getWidth()) {
+            newX = getX();
         }
-        setPicture(Game.makeBall(shooterColor, Game.BIG)); // Update the picture with the new color
-    }
-
-    //@Override
-    public void draw(Graphics g) {
-
-    }
-    public boolean isPowerUpActive() {
-        return hasPowerUp;
-    }
-
-    public int getPowerUpBulletSize() {
-
-        return Game.BIG;
-    }
-
-    public double getPowerUpBulletSpeedMultiplier() {
-
-        return 1.5;
-    }
-
-    public void move(int deltaX, int deltaY) {
-        // Calculate new position
-        int newX = (int) (getX() + deltaX);
-        int newY = (int) (getY() + deltaY);
-
-        newX = (int) Math.max(0, Math.min(getSpriteComponent().getSize().width - getWidth(), newX));
-        newY = (int) Math.max(0, Math.min(getSpriteComponent().getSize().height - getHeight(), newY));
-
-        setX(newX);
-        setY(newY);
-    }
-
-    public void keyPressed(KeyEvent ke) {
-        switch (ke.getKeyCode()) {
-            case KeyEvent.VK_A:
-                movingLeft = true;
-                break;
-            case KeyEvent.VK_D:
-                movingRight = true;
-                break;
-            case KeyEvent.VK_W:
-                movingUp = true;
-                break;
-            case KeyEvent.VK_S:
-                movingDown = true;
-                break;
+        if (newY < 0 || newY > getSpriteComponent().getSize().height - getHeight()) {
+            newY = getY(); 
         }
+    
+    
+        setX(newX * SPEED);
+        setY(newY * SPEED); 
     }
-    public void activateSpeedPowerUp() {
-        bulletSpeedMultiplier = 2.0;
+    public void lifeLost() {
+        lives--;
     }
-
-    public void deactivateSpeedPowerUp() {
-        bulletSpeedMultiplier = 1.0; // Resets to normal speed
+    public int getLives(){
+        return lives;
     }
-
-    public void keyReleased(KeyEvent ke) {
-        switch (ke.getKeyCode()) {
-            case KeyEvent.VK_A:
-                movingLeft = false;
-                break;
-            case KeyEvent.VK_D:
-                movingRight = false;
-                break;
-            case KeyEvent.VK_W:
-                movingUp = false;
-                break;
-            case KeyEvent.VK_S:
-                movingDown = false;
-                break;
-        }
+    public void bombLost() {
+        bombs--;
     }
-
-
-    private boolean bulletSizeIncreased = false;
-
-    public void activateBulletSizePowerUp() {
-        bulletSizeIncreased = true;
-
+    public int getBombs(){
+        return bombs;
     }
-
-    public boolean isBulletSizeIncreased() {
-        return bulletSizeIncreased;
-    }
-
 }

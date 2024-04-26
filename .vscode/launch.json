@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "myGame",
+            "request": "launch",
+            "mainClass": "FinalProject.myGame",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "UI",
+            "request": "launch",
+            "mainClass": "LaneSurvivor.UI",
+            "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
             "name": "BTree3",
             "request": "launch",
             "mainClass": "Examples.Binary_Trees.BTree3",
@@ -278,6 +292,14 @@
             "request": "launch",
             "mainClass": "basicgraphics.BasicFrame",
             "projectName": "CSC 1351_af1640a7"
+        },
+        {
+            "type": "java",
+            "name": "SpriteComponent",
+            "request": "launch",
+            "mainClass": "basicgraphics.SpriteComponent",
+            "projectName": "CSC 1351_af1640a7",
+            "vmArgs": "-ea"
         },
         {
             "type": "java",

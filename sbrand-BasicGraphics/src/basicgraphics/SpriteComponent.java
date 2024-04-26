@@ -46,12 +46,21 @@ public class SpriteComponent extends JComponent implements MouseListener {
         addMouseListener(this);
     }
 
-    public void addSprite(Sprite sp) {
-        sprites.add(sp);
-    }
-
-    public void removeSprite(Sprite sp) {
-        sprites.remove(sp);
+    void addSprite(Sprite sp) {
+        assert sp.getSpriteComponent() == null || sp.getSpriteComponent() == this;
+        if(SwingUtilities.isEventDispatchThread()) {
+            sprites.add(sp);
+        } else {
+            try {
+                SwingUtilities.invokeAndWait(()->{
+                    sprites.add(sp);
+                });
+            } catch (InterruptedException ex) {
+                TaskRunner.report(ex, this);
+            } catch (InvocationTargetException ex) {
+                TaskRunner.report(ex, this);
+            }
+        }
     }
     
     public void paintBackground(Graphics g) {

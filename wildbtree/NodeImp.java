@@ -3,8 +3,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class NodeImp<T extends Comparator<T>> extends Node {
-    public NodeImp(Object k, Object v, T c) {
+public class NodeImp extends Node {
+    public NodeImp(Object k, Object v, @SuppressWarnings("rawtypes") Comparator c) {
         super(k, v, c);
     }
 
@@ -12,11 +12,15 @@ public class NodeImp<T extends Comparator<T>> extends Node {
     public Node rotateLeft() {
         if (this.right == null) return this;
 
-        Node newRoot = this.right;
-        this.right = newRoot.left;
-        newRoot.left = this;
+        Node t4 = this.right;
+        this.right = t4.left;
+        t4.left = this;
+        //this.right = t2;
+        // Node newRoot = this.right;
+        // this.right = newRoot.left;
+        // newRoot.left = this;
 
-        return newRoot;
+        return t4;
     }
 
     @Override
@@ -65,13 +69,13 @@ public class NodeImp<T extends Comparator<T>> extends Node {
             this.value = value;
         } else if (d > 0) {
             if (this.right == null) {
-                this.right = new NodeImp<>(key, value, c); 
+                this.right = new NodeImp(key, value, c); 
             } else {
                 this.right.put(key, value);
             }
         } else {
             if (this.left == null) {
-                this.left = new NodeImp<>(key, value, c); 
+                this.left = new NodeImp(key, value, c); 
             } else {
                 this.left.put(key, value);
             }
@@ -83,14 +87,13 @@ public class NodeImp<T extends Comparator<T>> extends Node {
         Stack<Node> stack = new Stack<>();
         Node smallest = this;  
 
-        
         while (smallest != null) {
             stack.push(smallest);  
             smallest = smallest.left;  
         }
 
         return new Iterator<Node>() { 
-            private Node node = stack.isEmpty() ? null : stack.pop();  // Initialize the first node
+            private Node node = stack.isEmpty() ? null : stack.pop();
 
             @Override
             public boolean hasNext() {

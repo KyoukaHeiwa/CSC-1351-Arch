@@ -1,68 +1,64 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package FinalProject;
 
 import basicgraphics.CollisionEventType;
 import basicgraphics.Sprite;
 import basicgraphics.SpriteCollisionEvent;
 import basicgraphics.SpriteComponent;
+import basicgraphics.images.Picture;
+import basicgraphics.sounds.ReusableClip;
 
-import java.awt.*;
-
+/**
+ *
+ * @author sbrandt
+ */
 public class Enemy extends Sprite {
     static int enemyCount;
-    private int speed;
-    private int strength;
-    private int duplicationLimit = 2;
-
+     boolean shouldFollow = false;
+    
     @Override
     public void setActive(boolean b) {
-        if (isActive() == b)
+        if(isActive() == b)
             return;
-        if (b)
+        if(b)
             enemyCount++;
         else
             enemyCount--;
         super.setActive(b);
     }
 
-    public Enemy(SpriteComponent sc) {
+    public Enemy(SpriteComponent sc, Picture sprite) {
         super(sc);
         enemyCount++;
-        setPicture(Game.makeBall(Game.ENEMY_COLOR, Game.BIG));
-        while (true) {
-            setX(Game.RAND.nextInt(Game.BOARD_SIZE.width) - Game.SMALL);
-            setY(Game.RAND.nextInt(Game.BOARD_SIZE.height) - Game.SMALL);
-            if (Math.abs(getX() - Game.BOARD_SIZE.width / 2) < 2 * Game.BIG
-                    && Math.abs(getY() - Game.BOARD_SIZE.height / 2) < 2 * Game.BIG) {
-
-            } else {
-                break;
-            }
+        setPicture(sprite);;
+        initPosition();
+        setVelocity();
+    }
+    private void setVelocity() {
+        setVel(1 * myGame.RAND.nextDouble() - 1, 1 * myGame.RAND.nextDouble());
+    }
+    private void initPosition() {
+        Shooter shooter = myGame.getShooter();
+        double shooterX = shooter.getX();
+        double shooterY = shooter.getY();
+        double distance;
+        do{
+        setX(myGame.RAND.nextInt(myGame.BOARD_SIZE.width) - myGame.SMALL);
+        setY(myGame.RAND.nextInt(myGame.BOARD_SIZE.height) - myGame.SMALL);
+        distance = Math.hypot(getX() - shooterX, getY() - shooterY);
         }
-        // A random speed
-        setVel(6 * Game.RAND.nextDouble() - 1, 6 * Game.RAND.nextDouble());
+        while(distance < myGame.MIN_DISTANCE_FROM_SHOOTER);
     }
-
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
+    final static ReusableClip clip = new ReusableClip("die.wav");
 
     @Override
     public void processEvent(SpriteCollisionEvent se) {
         SpriteComponent sc = getSpriteComponent();
-
-        if (se.eventType == CollisionEventType.WALL_INVISIBLE) {
+        if(se.eventType == CollisionEventType.WALL_INVISIBLE) {
             if (se.xlo) {
                 setX(sc.getSize().width - getWidth());
             }
@@ -75,25 +71,32 @@ public class Enemy extends Sprite {
             if (se.yhi) {
                 setY(0);
             }
-        if(duplicationLimit > 0){
-            duplicateEnemy();
-        }
         }
 
+//        if (se.eventType == CollisionEventType.SPRITE) {
+//        }
+    
     }
 
-    private void duplicateEnemy() {
-        // Decrement the duplication limit
-        duplicationLimit--;
+    public void followShooter() {
+        Shooter shooter = myGame.getShooter();
+        double enemyX = getX();
+        double enemyY = getY();
+        double shooterX = shooter.getX();
+        double shooterY = shooter.getY();
 
-        // Create a duplicate of this enemy
-        Enemy duplicate = new Enemy(getSpriteComponent());
-        duplicate.duplicationLimit = this.duplicationLimit; // Copy the duplication limit
-        getSpriteComponent().addSprite(duplicate);
+        double directionX = shooterX - enemyX;
+        double directionY = shooterY - enemyY;
+        double magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
+        
+        if (magnitude > 0) {
+            directionX /= magnitude;
+            directionY /= magnitude;
+        }
+
+        setVel(directionX * getSpeed(), directionY * getSpeed());
+
+        super.move(myGame.BOARD_SIZE);
     }
 
-    //@Override
-    public void draw(Graphics g) {
-
-    }
 }
